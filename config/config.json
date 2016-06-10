@@ -1,0 +1,12 @@
+{
+	"Client": "http://www.circuit.space",
+	"Server": {
+		"Hostname": "",
+		"UseHTTP": true,
+		"UseHTTPS": false,
+		"HTTPPort": 8000,
+		"HTTPSPort": 443,
+		"CertFile": "tls/server.crt",
+		"KeyFile": "tls/server.key"
+	}
+}
