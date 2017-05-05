@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"runtime"
@@ -70,7 +71,8 @@ func loop(s *serial.Port) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		log.Printf("%q", buf[:n])
+		fmt.Printf("%q", buf[:n])
+		fmt.Println("")
 
 		Melody.BroadcastFilter(buf[:n], func(q *melody.Session) bool {
 			return true
