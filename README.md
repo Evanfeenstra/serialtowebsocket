@@ -1,4 +1,4 @@
-#serialtowebsocket
+# serialtowebsocket
 
 receives serial and send websockets on port 8000/:something
 
@@ -7,7 +7,7 @@ receives serial and send websockets on port 8000/:something
 `chmod 770 serialtowebsocket` if you get a permission error
 
 
-###javascript client
+### javascript client
 
 ```
 var ws = new WebSocket('ws://localhost:8000/cool')
