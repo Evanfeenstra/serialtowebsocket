@@ -56,7 +56,7 @@ func main() {
 	c := &serial.Config{Name: findArduino(), Baud: 9600}
 	s, err := serial.OpenPort(c)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("No Arduino Found")
 	}
 
 	go loop(s)

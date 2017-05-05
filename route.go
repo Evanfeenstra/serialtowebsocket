@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
 	"github.com/justinas/alice"
 )
@@ -61,9 +60,6 @@ func middleware(h http.Handler) http.Handler {
 	// Log every request
 	h = HandleLogs(h)
 
-	// Clear handler for Gorilla Context (without this, memory leak)
-	h = context.ClearHandler(h)
-
 	return h
 }
 
@@ -73,4 +69,20 @@ func HandleLogs(next http.Handler) http.Handler {
 		fmt.Println(time.Now().Format("2006-01-02 03:04:05 PM"), r.RemoteAddr, r.Method, r.URL)
 		next.ServeHTTP(w, r)
 	})
+}
+
+// HandlerFunc accepts the name of a function so you don't have to wrap it with http.HandlerFunc
+// Example: r.GET("/", httprouterwrapper.HandlerFunc(controller.Index))
+func HandlerFunc(h http.HandlerFunc) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		h.ServeHTTP(w, r)
+	}
+}
+
+// Handler accepts a handler to make it compatible with http.HandlerFunc
+// Example: r.GET("/", httprouterwrapper.Handler(http.HandlerFunc(controller.Index)))
+func Handler(h http.Handler) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		h.ServeHTTP(w, r)
+	}
 }

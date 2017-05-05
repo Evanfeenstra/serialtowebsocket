@@ -32,8 +32,6 @@ func RunServer(httpHandlers http.Handler, httpsHandlers http.Handler) {
 		KeyFile:   "tls/server.key",
 	}
 
-	port := 8000
-	s.HTTPPort = port
 	if s.UseHTTP && s.UseHTTPS {
 		go func() {
 			startHTTPS(httpsHandlers, s)
